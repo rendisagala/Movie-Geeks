@@ -1,16 +1,16 @@
 require("dotenv").config();
 const axios = require("axios");
 
-exports.details = async (id, requested, data) => {
-  // adult, backdrop_path, budget, genres, homepage, id, imdb_id, original_language, title, overview, popularity, poster_path, production_companies, production_countries, release_date, revenue, runttime, status, voe_average, vote_count
+exports.details = async (id, data) => {
+  //  backdrop_path, budget, genres, homeid, imdb_id, original_language, title, overview, popularity, poster_path, production_companies, production_countries, release_date, revenue, runttime, status, voe_average, vote_count
   const detail = await axios.get(
     `${process.env.API}/movie/${id}?api_key=${process.env.APIKEY}`
   );
   try {
-    return data(null, detail.data[`${requested}`]);
+    return data(detail.data);
   } catch (error) {
     console.log(error);
-    return data(null, error);
+    return data(error);
   }
 };
 
@@ -24,10 +24,10 @@ exports.cast = async (id, requested, data) => {
     for (let i = 0; i < cast.data.cast.length; i++) {
       result.push(cast.data.cast[i][`${requested}`]);
     }
-    return data(null, result);
+    return data(result);
   } catch (error) {
     console.log(error);
-    return data(null, error);
+    return data(error);
   }
 };
 
@@ -40,10 +40,10 @@ exports.images = async (id, data) => {
     for (let i = 0; i < image.data.backdrops.length; i++) {
       result.push(`${process.env.IMAGE}${image.data.backdrops[i].file_path}`);
     }
-    return data(null, result);
+    return data(result);
   } catch (error) {
     console.log(error);
-    return data(null, error);
+    return data(error);
   }
 };
 
@@ -56,10 +56,10 @@ exports.keywords = async (id, data) => {
     for (let i = 0; i < keyword.data.keywords.length; i++) {
       result.push(keyword.data.keywords[i].name);
     }
-    return data(null, result);
+    return data(result);
   } catch (error) {
     console.log(error);
-    return data(null, error);
+    return data(error);
   }
 };
 
@@ -73,10 +73,10 @@ exports.recommendations = async (id, data) => {
     for (let i = 0; i < recommendation.data.results.length; i++) {
       result.push(recommendation.data.results[i].id);
     }
-    return data(null, result);
+    return data(result);
   } catch (error) {
     console.log(error);
-    return data(null, error);
+    return data(error);
   }
 };
 
@@ -89,14 +89,14 @@ exports.releaseDates = async (id, data) => {
     for (let i = 0; i < releaseDate.data.results.length; i++) {
       result.push(releaseDate.data.results[i].release_dates[0].release_date);
     }
-    return data(null, result);
+    return data(result);
   } catch (error) {
     console.log(error);
-    return data(null, error);
+    return data(error);
   }
 };
 
-exports.reviews = async (id, requested, data) => {
+exports.review = async (id, requested, data) => {
   // author, content
   const review = await axios.get(
     `${process.env.API}/movie/${id}/reviews?api_key=${process.env.APIKEY}`
@@ -106,10 +106,10 @@ exports.reviews = async (id, requested, data) => {
     for (let i = 0; i < review.data.results.length; i++) {
       result.push(review.data.results[i][`${requested}`]);
     }
-    return data(null, result);
+    return data(result);
   } catch (error) {
     console.log(error);
-    return data(null, error);
+    return data(error);
   }
 };
 
@@ -125,81 +125,81 @@ exports.videos = async (id, data) => {
         result.push(`https://youtu.be/${video.data.results[i].key}`);
       }
     }
-    return data(null, result);
+    return data(result);
   } catch (error) {
     console.log(error);
-    return data(null, error);
+    return data(error);
   }
 };
 
-exports.topRated = async (page, data) => {
+exports.topRated = async (data) => {
   // genre_ids, id, original_language, original_title, overview, popularity, poster_path, release_date, title, video, vote_average, vote_count
   //  returns movie id
   const top = await axios.get(
-    `${process.env.API}/movie/top_rated?api_key=${process.env.APIKEY}&page=${page}`
+    `${process.env.API}/movie/top_rated?api_key=${process.env.APIKEY}`
   );
   let result = [];
   try {
     for (let i = 0; i < top.data.results.length; i++) {
       result.push(top.data.results[i].id);
     }
-    return data(null, result);
+    return data(result);
   } catch (error) {
     console.log(error);
-    return data(null, error);
+    return data(error);
   }
 };
 
-exports.popular = async (page, data) => {
+exports.popular = async (data) => {
   // genre_ids, id, original_language, original_title, overview, popularity, poster_path, release_date, title, video, vote_average, vote_count
   //  returns movie id
   const popular = await axios.get(
-    `${process.env.API}/movie/popular?api_key=${process.env.APIKEY}&page=${page}`
+    `${process.env.API}/movie/popular?api_key=${process.env.APIKEY}`
   );
   let result = [];
   try {
     for (let i = 0; i < popular.data.results.length; i++) {
       result.push(popular.data.results[i].id);
     }
-    return data(null, result);
+    return data(result);
   } catch (error) {
     console.log(error);
-    return data(null, error);
+    return data(error);
   }
 };
 
-exports.nowPlaying = async (page, data) => {
+exports.nowPlaying = async (data) => {
   // genre_ids, id, original_language, original_title, overview, popularity, poster_path, release_date, title, video, vote_average, vote_count
   //  returns movie id
   const top = await axios.get(
-    `${process.env.API}/movie/now_playing?api_key=${process.env.APIKEY}&page=${page}`
+    `${process.env.API}/movie/now_playing?api_key=${process.env.APIKEY}`
   );
   let result = [];
   try {
     for (let i = 0; i < top.data.results.length; i++) {
       result.push(top.data.results[i].id);
     }
-    return data(null, result);
+    return data(result);
   } catch (error) {
     console.log(error);
-    return data(null, error);
+    return data(error);
   }
 };
 
-exports.upcoming = async (page, data) => {
+exports.upcoming = async (data) => {
   // genre_ids, id, original_language, original_title, overview, popularity, poster_path, release_date, title, video, vote_average, vote_count
   //  returns movie id
   const top = await axios.get(
-    `${process.env.API}/movie/upcoming?api_key=${process.env.APIKEY}&page=${page}`
+    `${process.env.API}/movie/upcoming?api_key=${process.env.APIKEY}`
   );
   let result = [];
   try {
     for (let i = 0; i < top.data.results.length; i++) {
       result.push(top.data.results[i].id);
     }
-    return data(null, result);
+    return data(result);
   } catch (error) {
     console.log(error);
-    return data(null, error);
+    return data(error);
   }
 };
