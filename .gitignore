@@ -106,3 +106,5 @@ dist
 # git
 .gitattributes
 
+# extension
+.prettierignore

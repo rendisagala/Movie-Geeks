@@ -1,3 +1,4 @@
+require("dotenv").config();
 const movie = require("../models/movie");
 const tv = require("../models/tv");
 const tvSeason = require("../models/tvSeason");
@@ -9,113 +10,45 @@ const trending = require("../models/trending");
 const person = require("../models/person");
 const review = require("../models/review");
 
-exports.testController = (req, res) => {
-  const id = req.body.id;
-  const requested = req.body.requested;
-  const page = req.body.page;
-  const season = req.body.season;
-  movie.details(id, (result) => {
-    res.json(result);
+exports.testController = async (req, res) => {
+  var genres;
+  var temp = [];
+  var trendingMovie = [];
+  var trendingMovieTitle = [];
+  var trendingMovieImage = [];
+  var trendingMovieGenre = [];
+  var trendingMovieOverview = [];
+  await genre.movie((result) => {
+    genres = result;
+  });
+
+  await trending.movie(async (result) => {
+    for (let i = 0; i < result.length; i++) {
+      await trendingMovieTitle.push(result[i].title);
+      await trendingMovieOverview.push(result[i].overview);
+      await trendingMovie.push(result[i].id);
+      await trendingMovieImage.push(
+        `${process.env.IMAGE}${result[i].poster_path}`
+      );
+      await movie.details(result[i].id, async (data) => {
+        await temp.push(data.genres.map(Object.values));
+      });
+    }
+    for (let i = 0; i < temp.length; i++) {
+      for (let j = 0; j < temp[i].length; j++) {
+        temp[i][j].shift();
+      }
+      await trendingMovieGenre.push(temp[i].flat());
+    }
+  });
+
+  // res.json(trendingMovieGenre);
+  res.render("pages/index", {
+    genres: genres,
+    trendingMovie: trendingMovie,
+    trendingMovieTitle: trendingMovieTitle,
+    trendingMovieImage: trendingMovieImage,
+    trendingMovieGenre: trendingMovieGenre,
+    trendingMovieOverview: trendingMovieOverview,
   });
 };
-
-// exports.testController = (req, res) => {
-//   const id = req.body.id;
-//   const requested = req.body.requested;
-//   const page = req.body.page;
-//   const season = req.body.season;
-//   tv.images(id, ( result) => {
-//
-//     res.json(result);
-//   });
-// };
-
-// exports.testController = (req, res) => {
-//   const id = req.body.id;
-//   const requested = req.body.requested;
-//   const page = req.body.page;
-//   const season = req.body.season;
-//   tvSeason.videos(id, season, ( result) => {
-//
-//     res.json(result);
-//   });
-// };
-
-// exports.testController = (req, res) => {
-//   const id = req.body.id;
-//   const requested = req.body.requested;
-//   const page = req.body.page;
-//   const season = req.body.season;
-//   const episode = req.body.episode;
-//   tvEpisode.details(id, season, episode, ( result) => {
-//
-//     res.json(result);
-//   });
-// };
-
-// exports.testController = (req, res) => {
-//   const id = req.body.id;
-//   const requested = req.body.requested;
-//   const page = req.body.page;
-//   const season = req.body.season;
-//   const episode = req.body.episode;
-//   const query = req.body.query;
-//   search.tv(query, ( result) => {
-//
-//     res.json(result);
-//   });
-// };
-
-// exports.testController = (req, res) => {
-//   const id = req.body.id;
-//   const requested = req.body.requested;
-//   const page = req.body.page;
-//   const season = req.body.season;
-//   genre.tv(( result) => {
-//
-//     res.json(result);
-//   });
-// };
-
-// exports.testController = (req, res) => {
-//   const id = req.body.id;
-//   const requested = req.body.requested;
-//   const page = req.body.page;
-//   const season = req.body.season;
-//   keyword.movies(id, ( result) => {
-//
-//     res.json(result);
-//   });
-// };
-
-// exports.testController = (req, res) => {
-//   const id = req.body.id;
-//   const requested = req.body.requested;
-//   const page = req.body.page;
-//   const season = req.body.season;
-//   trending.person(id, ( result) => {
-//
-//     res.json(result);
-//   });
-// };
-
-// exports.testController = (req, res) => {
-//   const id = req.body.id;
-//   const requested = req.body.requested;
-//   const page = req.body.page;
-//   const season = req.body.season;
-//   person.tv(id, ( result) => {
-//
-//     res.json(result);
-//   });
-// };
-
-// exports.testController = (req, res) => {
-//   const id = req.body.id;
-//   const requested = req.body.requested;
-//   const page = req.body.page;
-//   const season = req.body.season;
-//   review.details(id, (result) => {
-//     res.json(result);
-//   });
-// };

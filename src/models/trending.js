@@ -3,53 +3,55 @@ const axios = require("axios");
 
 // time line trending = 7 DAYS
 
-exports.movie = async (query, data) => {
+exports.movie = async (data) => {
   //returns movie id
-  const movie = await axios.get(
-    `${process.env.API}/trending/movie/week?api_key=${process.env.APIKEY}&query=${query}`
-  );
-  let result = [];
-  try {
-    for (let i = 0; i < movie.data.results.length; i++) {
-      result.push(movie.data.results[i].id);
-    }
-    return data(result);
-  } catch (error) {
-    console.log(error);
-    return data(error);
-  }
+  await axios
+    .get(`${process.env.API}/trending/movie/week?api_key=${process.env.APIKEY}`)
+    .then((results) => {
+      let result = [];
+      for (let i = 0; i < results.data.results.length; i++) {
+        result.push(results.data.results[i]);
+      }
+      return data(result);
+    })
+    .catch((error) => {
+      console.log(error);
+      return data(error);
+    });
 };
 
-exports.tv = async (query, data) => {
+exports.tv = async (data) => {
   //returns tv id
-  const tv = await axios.get(
-    `${process.env.API}/trending/tv/week?api_key=${process.env.APIKEY}&query=${query}`
-  );
-  let result = [];
-  try {
-    for (let i = 0; i < tv.data.results.length; i++) {
-      result.push(tv.data.results[i].id);
-    }
-    return data(result);
-  } catch (error) {
-    console.log(error);
-    return data(error);
-  }
+  await axios
+    .get(`${process.env.API}/trending/tv/week?api_key=${process.env.APIKEY}`)
+    .then((results) => {
+      let result = [];
+      for (let i = 0; i < results.data.results.length; i++) {
+        result.push(results.data.results[i].id);
+      }
+      return data(result);
+    })
+    .catch((error) => {
+      console.log(error);
+      return data(error);
+    });
 };
 
-exports.person = async (query, data) => {
+exports.person = async (data) => {
   //returns person id
-  const person = await axios.get(
-    `${process.env.API}/trending/person/week?api_key=${process.env.APIKEY}&query=${query}`
-  );
-  let result = [];
-  try {
-    for (let i = 0; i < person.data.results.length; i++) {
-      result.push(person.data.results[i].id);
-    }
-    return data(result);
-  } catch (error) {
-    console.log(error);
-    return data(error);
-  }
+  await axios
+    .get(
+      `${process.env.API}/trending/person/week?api_key=${process.env.APIKEY}`
+    )
+    .then((results) => {
+      let result = [];
+      for (let i = 0; i < results.data.results.length; i++) {
+        result.push(results.data.results[i].id);
+      }
+      return data(result);
+    })
+    .catch((error) => {
+      console.log(error);
+      return data(error);
+    });
 };
