@@ -822,6 +822,7 @@ ol {
 }
 
 .product__sidebar__comment__item__pic {
+  width: 130px;
   float: left;
   margin-right: 15px;
 }

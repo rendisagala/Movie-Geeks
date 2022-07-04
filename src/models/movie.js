@@ -77,7 +77,7 @@ exports.recommendations = async (id, data) => {
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
-        result.push(results.data.results[i].id);
+        result.push(results.data.results[i]);
       }
       return data(result);
     })
@@ -149,7 +149,7 @@ exports.topRated = async (data) => {
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
-        result.push(results.data.results[i].id);
+        result.push(results.data.results[i]);
       }
       return data(result);
     })
@@ -167,7 +167,7 @@ exports.popular = async (data) => {
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
-        result.push(results.data.results[i].id);
+        result.push(results.data.results[i]);
       }
       return data(result);
     })
@@ -185,7 +185,7 @@ exports.nowPlaying = async (data) => {
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
-        result.push(results.data.results[i].id);
+        result.push(results.data.results[i]);
       }
       return data(result);
     })
@@ -203,7 +203,7 @@ exports.upcoming = async (data) => {
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
-        result.push(results.data.results[i].id);
+        result.push(results.data.results[i]);
       }
       return data(result);
     })

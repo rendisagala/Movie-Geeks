@@ -21,7 +21,7 @@ exports.cast = async (id, data) => {
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.cast.length; i++) {
-        result.push(results.data.cast[i].id);
+        result.push(results.data.cast[i]);
       }
       return data(result);
     })
@@ -74,7 +74,7 @@ exports.recommendations = async (id, data) => {
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
-        result.push(results.data.results[i].id);
+        result.push(results.data.results[i]);
       }
       return data(result);
     })
@@ -91,7 +91,7 @@ exports.review = async (id, data) => {
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
-        result.push(results.data.results[i].id);
+        result.push(results.data.results[i]);
       }
       return data(result);
     })
@@ -129,7 +129,7 @@ exports.episodeGroups = async (id, data) => {
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
-        result.push(results.data.results[i].id);
+        result.push(results.data.results[i]);
       }
       return data(result);
     })
@@ -147,7 +147,7 @@ exports.today = async (data) => {
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
-        result.push(results.data.results[i].id);
+        result.push(results.data.results[i]);
       }
       return data(result);
     })
@@ -165,7 +165,7 @@ exports.popular = async (data) => {
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
-        result.push(results.data.results[i].id);
+        result.push(results.data.results[i]);
       }
       return data(result);
     })
@@ -183,7 +183,7 @@ exports.thisWeek = async (data) => {
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
-        result.push(results.data.results[i].id);
+        result.push(results.data.results[i]);
       }
       return data(result);
     })
@@ -201,7 +201,7 @@ exports.topRated = async (data) => {
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
-        result.push(results.data.results[i].id);
+        result.push(results.data.results[i]);
       }
       return data(result);
     })
