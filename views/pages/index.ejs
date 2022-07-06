@@ -15,7 +15,7 @@ include ("../partials/navbar") %>
               <div class="label"> <%= trendingMovieGenre[i][j] %></div><% } %>
               <h2> <%= trendingMovieTitle[i] %></h2>
               <p><%= trendingMovieOverview[i] %></p>
-              <a href="/details/movie/<%= trendingMovie[i] %>"
+              <a href="/movie/details/<%= trendingMovie[i] %>"
                 ><span>Get Details</span> <i class="fa fa-angle-right"></i
               ></a>
             </div>
@@ -54,7 +54,7 @@ include ("../partials/navbar") %>
             <div class="col-lg-4 col-md-6 col-sm-6">
               
               <div class="product__item">
-                <a href="/details/movie/<%= popularMovie[i] %>">
+                <a href="/movie/details/<%= popularMovie[i] %>">
                 <div
                   class="product__item__pic set-bg"
                   data-setbg="<%= popularMovieImage[i] %>"
@@ -68,7 +68,7 @@ include ("../partials/navbar") %>
                
                   </ul>
                   <h5>
-                    <a href="/details/movie/<%= popularMovie[i] %>"><%= popularMovieTitle[i] %></a>
+                    <a href="/movie/details/<%= popularMovie[i] %>"><%= popularMovieTitle[i] %></a>
                   </h5>
                 </div>
               </div>
@@ -95,7 +95,7 @@ include ("../partials/navbar") %>
             <% for (let i =0; i <popularTV.length; i++) {  %>
             <div class="col-lg-4 col-md-6 col-sm-6">
               <div class="product__item">
-                <a href="/details/tv/<%= popularTV[i] %>">
+                <a href="/tv/details/<%= popularTV[i] %>">
                 <div
                   class="product__item__pic set-bg"
                   data-setbg="<%= popularTVImage[i] %>"
@@ -109,7 +109,7 @@ include ("../partials/navbar") %>
                     <li><%= popularTVGenre[i][j] %></li><% } %>
                 
                   </ul>
-                  <h5><a href="/details/tv/<%=popularTV[i] %>"><%= popularTVTitle[i] %></a></h5>
+                  <h5><a href="/tv/details/<%=popularTV[i] %>"><%= popularTVTitle[i] %></a></h5>
                 </div>
               </div>
             </div><% } %>
@@ -134,7 +134,7 @@ include ("../partials/navbar") %>
               > 
                 <div class="ep"><%= topRatedMovieVoteAverage[i] %></div>
             
-                <h5><a href="/details/movie/<%= topRatedMovie[i] %>"><%= topRatedMovieTitle[i] %></a></h5>
+                <h5><a href="/movie/details/<%= topRatedMovie[i] %>"><%= topRatedMovieTitle[i] %></a></h5>
               </div>
             <% } %>
              
@@ -150,7 +150,7 @@ include ("../partials/navbar") %>
               </div>
               <div class="product__sidebar__comment__item__text">
                 <h5>
-                  <a href="/details/tv/<%= topRatedTV[i] %>"><%= topRatedTVTitle[i] %></a>
+                  <a href="/tv/details/<%= topRatedTV[i] %>"><%= topRatedTVTitle[i] %></a>
                 </h5>              
                   <ul>
                   <% for (let j =0; j <topRatedTVGenre[i].length; j++) {  %>

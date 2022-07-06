@@ -31,7 +31,7 @@
 html,
 body {
   height: 100%;
-  font-family: "Mulish", sans-serif;
+  font-family: 'Mulish', sans-serif;
   -webkit-font-smoothing: antialiased;
   background: #0b0c2a;
 }
@@ -45,7 +45,7 @@ h6 {
   margin: 0;
   color: #111111;
   font-weight: 400;
-  font-family: "Mulish", sans-serif;
+  font-family: 'Mulish', sans-serif;
 }
 
 h1 {
@@ -74,7 +74,7 @@ h6 {
 
 p {
   font-size: 15px;
-  font-family: "Mulish", sans-serif;
+  font-family: 'Mulish', sans-serif;
   color: #3d3d3d;
   font-weight: 400;
   line-height: 25px;
@@ -119,7 +119,7 @@ ol {
     text-transform: uppercase;
     padding-left: 20px;
     position: relative;
-    font-family: "Oswald", sans-serif;
+    font-family: 'Oswald', sans-serif;
 
     &:after {
       position: absolute;

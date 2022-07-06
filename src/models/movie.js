@@ -15,14 +15,14 @@ exports.details = async (id, data) => {
     });
 };
 
-exports.cast = async (id, requested, data) => {
+exports.cast = async (id, data) => {
   // gender, id, known_for_department, name, popularity, profile_path, cast_id, character, credit_id, order
   await axios
     .get(`${process.env.API}/movie/${id}/credits?api_key=${process.env.APIKEY}`)
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.cast.length; i++) {
-        result.push(results.data.cast[i][`${requested}`]);
+        result.push(results.data.cast[i]);
       }
       return data(result);
     })
@@ -130,7 +130,9 @@ exports.videos = async (id, data) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
         if (results.data.results[i]["type"] == "Trailer") {
-          result.push(`https://youtu.be/${results.data.results[i].key}`);
+          result.push(
+            `https://www.youtube.com/embed/${results.data.results[i].key}`
+          );
         }
       }
       return data(result);
@@ -146,6 +148,24 @@ exports.topRated = async (data) => {
   //  returns movie id
   await axios
     .get(`${process.env.API}/movie/top_rated?api_key=${process.env.APIKEY}`)
+    .then((results) => {
+      let result = [];
+      for (let i = 0; i < results.data.results.length; i++) {
+        result.push(results.data.results[i]);
+      }
+      return data(result);
+    })
+    .catch((error) => {
+      console.log(error);
+      return data(error);
+    });
+};
+
+exports.similar = async (id, data) => {
+  // genre_ids, id, original_language, original_title, overview, popularity, poster_path, release_date, title, video, vote_average, vote_count
+  //  returns movie id
+  await axios
+    .get(`${process.env.API}/movie/${id}/similar?api_key=${process.env.APIKEY}`)
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {

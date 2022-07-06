@@ -109,7 +109,9 @@ exports.videos = async (id, data) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
         if (results.data.results[i]["type"] == "Trailer") {
-          result.push(`https://youtu.be/${results.data.results[i].key}`);
+          result.push(
+            `https://www.youtube.com/embed/${results.data.results[i].key}`
+          );
         }
       }
       return data(result);
@@ -162,6 +164,24 @@ exports.popular = async (data) => {
   //   returns tv id
   await axios
     .get(`${process.env.API}/tv/popular?api_key=${process.env.APIKEY}`)
+    .then((results) => {
+      let result = [];
+      for (let i = 0; i < results.data.results.length; i++) {
+        result.push(results.data.results[i]);
+      }
+      return data(result);
+    })
+    .catch((error) => {
+      console.log(error);
+      return data(error);
+    });
+};
+
+exports.similar = async (id, data) => {
+  // genre_ids, id, original_language, original_title, overview, popularity, poster_path, release_date, title, video, vote_average, vote_count
+  //  returns movie id
+  await axios
+    .get(`${process.env.API}/tv/${id}/similar?api_key=${process.env.APIKEY}`)
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {

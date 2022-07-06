@@ -11,7 +11,11 @@ const person = require("../models/person");
 const review = require("../models/review");
 
 var temp = [];
-exports.testController = async (req, res) => {
+
+var title;
+exports.index = async (req, res) => {
+  title = `Movie Geeks`;
+
   var genres;
   await genre.movie((result) => {
     genres = result;
@@ -25,21 +29,19 @@ exports.testController = async (req, res) => {
 
   await trending.movie(async (result) => {
     for (let i = 0; i < result.length; i++) {
-      await trendingMovieTitle.push(result[i].title);
-      await trendingMovieOverview.push(result[i].overview);
-      await trendingMovie.push(result[i].id);
-      await trendingMovieImage.push(
-        `${process.env.IMAGE}${result[i].poster_path}`
-      );
+      trendingMovieTitle.push(result[i].title);
+      trendingMovieOverview.push(result[i].overview);
+      trendingMovie.push(result[i].id);
+      trendingMovieImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
       await movie.details(result[i].id, async (data) => {
-        await temp.push(data.genres.map(Object.values));
+        temp.push(data.genres.map(Object.values));
       });
     }
     for (let i = 0; i < temp.length; i++) {
       for (let j = 0; j < temp[i].length; j++) {
         temp[i][j].shift();
       }
-      await trendingMovieGenre.push(temp[i].flat());
+      trendingMovieGenre.push(temp[i].flat());
     }
   });
 
@@ -53,22 +55,20 @@ exports.testController = async (req, res) => {
   await movie.popular(async (result) => {
     var temp = [];
     for (let i = 0; i < result.length; i++) {
-      await popularMovieTitle.push(result[i].title);
-      await popularMovieOverview.push(result[i].overview);
-      await popularMovieVoteAverage.push(result[i].vote_average);
-      await popularMovie.push(result[i].id);
-      await popularMovieImage.push(
-        `${process.env.IMAGE}${result[i].poster_path}`
-      );
+      popularMovieTitle.push(result[i].title);
+      popularMovieOverview.push(result[i].overview);
+      popularMovieVoteAverage.push(result[i].vote_average);
+      popularMovie.push(result[i].id);
+      popularMovieImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
       await movie.details(result[i].id, async (data) => {
-        await temp.push(data.genres.map(Object.values));
+        temp.push(data.genres.map(Object.values));
       });
     }
     for (let i = 0; i < temp.length; i++) {
       for (let j = 0; j < temp[i].length; j++) {
         temp[i][j].shift();
       }
-      await popularMovieGenre.push(temp[i].flat());
+      popularMovieGenre.push(temp[i].flat());
     }
   });
 
@@ -82,20 +82,20 @@ exports.testController = async (req, res) => {
   await tv.popular(async (result) => {
     var temp = [];
     for (let i = 0; i < result.length; i++) {
-      await popularTVTitle.push(result[i].name);
-      await popularTVOverview.push(result[i].overview);
-      await popularTVVoteAverage.push(result[i].vote_average);
-      await popularTV.push(result[i].id);
-      await popularTVImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
+      popularTVTitle.push(result[i].name);
+      popularTVOverview.push(result[i].overview);
+      popularTVVoteAverage.push(result[i].vote_average);
+      popularTV.push(result[i].id);
+      popularTVImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
       await tv.details(result[i].id, async (data) => {
-        await temp.push(data.genres.map(Object.values));
+        temp.push(data.genres.map(Object.values));
       });
     }
     for (let i = 0; i < temp.length; i++) {
       for (let j = 0; j < temp[i].length; j++) {
         temp[i][j].shift();
       }
-      await popularTVGenre.push(temp[i].flat());
+      popularTVGenre.push(temp[i].flat());
     }
   });
 
@@ -106,15 +106,11 @@ exports.testController = async (req, res) => {
   var topRatedMovieVoteAverage = [];
 
   await movie.topRated(async (result) => {
-    var temp = [];
     for (let i = 0; i < result.length; i++) {
-      await topRatedMovieTitle.push(result[i].title);
-
-      await topRatedMovieVoteAverage.push(result[i].vote_average);
-      await topRatedMovie.push(result[i].id);
-      await topRatedMovieImage.push(
-        `${process.env.IMAGE}${result[i].poster_path}`
-      );
+      topRatedMovieTitle.push(result[i].title);
+      topRatedMovieVoteAverage.push(result[i].vote_average);
+      topRatedMovie.push(result[i].id);
+      topRatedMovieImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
     }
   });
 
@@ -128,28 +124,27 @@ exports.testController = async (req, res) => {
   await tv.topRated(async (result) => {
     var temp = [];
     for (let i = 0; i < result.length; i++) {
-      await topRatedTVTitle.push(result[i].name);
-      await topRatedTVVoteAverage.push(result[i].vote_average);
-      await topRatedTVOverview.push(result[i].overview);
-      await topRatedTV.push(result[i].id);
-      await topRatedTVImage.push(
-        `${process.env.IMAGE}${result[i].poster_path}`
-      );
+      topRatedTVTitle.push(result[i].name);
+      topRatedTVVoteAverage.push(result[i].vote_average);
+      topRatedTVOverview.push(result[i].overview);
+      topRatedTV.push(result[i].id);
+      topRatedTVImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
       await tv.details(result[i].id, async (data) => {
-        await temp.push(data.genres.map(Object.values));
+        temp.push(data.genres.map(Object.values));
       });
     }
     for (let i = 0; i < temp.length; i++) {
       for (let j = 0; j < temp[i].length; j++) {
         temp[i][j].shift();
       }
-      await topRatedTVGenre.push(temp[i].flat());
+      topRatedTVGenre.push(temp[i].flat());
     }
   });
 
   // console.log(topRatedTVGenre);
   // res.json(trendingMovieGenre);
   res.render("pages/index", {
+    title: title,
     genres: genres,
     trendingMovie: trendingMovie,
     trendingMovieTitle: trendingMovieTitle,
