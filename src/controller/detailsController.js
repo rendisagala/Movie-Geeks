@@ -16,7 +16,7 @@ var title;
 
 exports.movie = async (req, res) => {
   type = `Movie`;
-
+  var page = 1;
   var genres;
   id = req.params.id;
   await genre.movie((result) => {
@@ -69,17 +69,28 @@ exports.movie = async (req, res) => {
       movieTrailer = result[0];
     });
     await movie.images(id, (result) => {
-      moviePhotos.push(...result);
+      for (let i = 0; i < result.length; i++) {
+        if (result[i].poster_path === null) {
+          moviePhotos.push(`https://http.cat/404`);
+        } else {
+          moviePhotos.push(result[i]);
+        }
+      }
     });
   });
   title = `${movieTitle} - details`;
   var cast = [];
-
+  var castImage = [];
   var castName = [];
   await movie.cast(id, (result) => {
     for (let i = 0; i < result.length; i++) {
       cast.push(result[i].id);
       castName.push(result[i].name);
+      if (result[i].profile_path === null) {
+        castImage.push(`https://http.cat/404`);
+      } else {
+        castImage.push(`${process.env.IMAGE}${result[i].profile_path}`);
+      }
     }
   });
 
@@ -88,7 +99,7 @@ exports.movie = async (req, res) => {
   var similarMovieImage = [];
   var similarMovieVoteAverage = [];
 
-  await movie.similar(id, async (result) => {
+  await movie.similar(id, 1, async (result) => {
     for (let i = 0; i < result.length; i++) {
       similarMovieTitle.push(result[i].title);
       similarMovieVoteAverage.push(result[i].vote_average);
@@ -119,6 +130,7 @@ exports.movie = async (req, res) => {
     movieTrailer: movieTrailer,
     moviePhotos: moviePhotos,
     cast: cast,
+    castImage: castImage,
     castName: castName,
     similarMovie: similarMovie,
     similarMovieImage: similarMovieImage,
@@ -186,7 +198,13 @@ exports.tv = async (req, res) => {
       tvTrailer = result[0];
     });
     await tv.images(id, (result) => {
-      tvPhotos.push(...result);
+      for (let i = 0; i < result.length; i++) {
+        if (result[i].poster_path === null) {
+          tvPhotos.push(`https://http.cat/404`);
+        } else {
+          tvPhotos.push(result[i]);
+        }
+      }
     });
     tvStatus = result.status;
     tvTagLine = result.tagline;
@@ -195,11 +213,17 @@ exports.tv = async (req, res) => {
   });
   title = `${tvTitle} - details`;
   var cast = [];
+  var castImage = [];
   var castName = [];
   await tv.cast(id, (result) => {
     for (let i = 0; i < result.length; i++) {
       cast.push(result[i].id);
       castName.push(result[i].name);
+      if (result[i].profile_path === null) {
+        castImage.push(`https://http.cat/404`);
+      } else {
+        castImage.push(`${process.env.IMAGE}${result[i].profile_path}`);
+      }
     }
   });
 
@@ -208,15 +232,19 @@ exports.tv = async (req, res) => {
   var similarTVImage = [];
   var similarTVVoteAverage = [];
 
-  await tv.similar(id, async (result) => {
+  await tv.similar(id, 1, async (result) => {
     for (let i = 0; i < result.length; i++) {
       similarTVTitle.push(result[i].name);
       similarTVVoteAverage.push(result[i].vote_average);
       similarTV.push(result[i].id);
-      similarTVImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
+      if (result[i].poster_path === null) {
+        similarTVImage.push(`https://http.cat/404`);
+      } else {
+        similarTVImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
+      }
     }
   });
-  // console.log(tvTrailer);
+  console.log(castImage);
   res.render("pages/tvDetails", {
     type: type,
     title: title,
@@ -244,6 +272,7 @@ exports.tv = async (req, res) => {
     tvTrailer: tvTrailer,
     tvPhotos: tvPhotos,
     cast: cast,
+    castImage: castImage,
     castName: castName,
     similarTV: similarTV,
     similarTVImage: similarTVImage,

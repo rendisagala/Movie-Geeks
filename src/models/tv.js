@@ -37,9 +37,13 @@ exports.images = async (id, data) => {
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.backdrops.length; i++) {
-        result.push(
-          `${process.env.IMAGE}${results.data.backdrops[i].file_path}`
-        );
+        if (results.data.backdrops[i].file_path !== null) {
+          result.push(
+            `${process.env.IMAGE}${results.data.backdrops[i].file_path}`
+          );
+        } else {
+          result.push("sH6030EbSzOUTFFZrpnTdSpeNP0.jpg");
+        }
       }
       return data(result);
     })
@@ -65,11 +69,11 @@ exports.keywords = async (id, data) => {
     });
 };
 
-exports.recommendations = async (id, data) => {
+exports.recommendations = async (id, page, data) => {
   // returns tv id
   await axios
     .get(
-      `${process.env.API}/tv/${id}/recommendations?api_key=${process.env.APIKEY}`
+      `${process.env.API}/tv/${id}/recommendations?api_key=${process.env.APIKEY}&page=${page}`
     )
     .then((results) => {
       let result = [];
@@ -141,11 +145,13 @@ exports.episodeGroups = async (id, data) => {
     });
 };
 
-exports.today = async (data) => {
+exports.today = async (page, data) => {
   // genre_ids, id, original_language, original_title, overview, popularity, poster_path, release_date, title, video, vote_average, vote_count
   //   returns tv id
   await axios
-    .get(`${process.env.API}/tv/airing_today?api_key=${process.env.APIKEY}`)
+    .get(
+      `${process.env.API}/tv/airing_today?api_key=${process.env.APIKEY}&page=${page}`
+    )
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
@@ -159,11 +165,13 @@ exports.today = async (data) => {
     });
 };
 
-exports.popular = async (data) => {
+exports.popular = async (page, data) => {
   // genre_ids, id, original_language, original_title, overview, popularity, poster_path, release_date, title, video, vote_average, vote_count
   //   returns tv id
   await axios
-    .get(`${process.env.API}/tv/popular?api_key=${process.env.APIKEY}`)
+    .get(
+      `${process.env.API}/tv/popular?api_key=${process.env.APIKEY}&page=${page}`
+    )
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
@@ -177,11 +185,13 @@ exports.popular = async (data) => {
     });
 };
 
-exports.similar = async (id, data) => {
+exports.similar = async (id, page, data) => {
   // genre_ids, id, original_language, original_title, overview, popularity, poster_path, release_date, title, video, vote_average, vote_count
   //  returns movie id
   await axios
-    .get(`${process.env.API}/tv/${id}/similar?api_key=${process.env.APIKEY}`)
+    .get(
+      `${process.env.API}/tv/${id}/similar?api_key=${process.env.APIKEY}&page=${page}`
+    )
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
@@ -195,11 +205,13 @@ exports.similar = async (id, data) => {
     });
 };
 
-exports.thisWeek = async (data) => {
+exports.thisWeek = async (page, data) => {
   // genre_ids, id, original_language, original_title, overview, popularity, poster_path, release_date, title, video, vote_average, vote_count
   //   returns tv id
   await axios
-    .get(`${process.env.API}/tv/on_the_air?api_key=${process.env.APIKEY}`)
+    .get(
+      `${process.env.API}/tv/on_the_air?api_key=${process.env.APIKEY}&page=${page}`
+    )
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
@@ -213,11 +225,13 @@ exports.thisWeek = async (data) => {
     });
 };
 
-exports.topRated = async (data) => {
+exports.topRated = async (page, data) => {
   // genre_ids, id, original_language, original_title, overview, popularity, poster_path, release_date, title, video, vote_average, vote_count
   //  returns tv id
   await axios
-    .get(`${process.env.API}/tv/top_rated?api_key=${process.env.APIKEY}`)
+    .get(
+      `${process.env.API}/tv/top_rated?api_key=${process.env.APIKEY}&page=${page}`
+    )
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {

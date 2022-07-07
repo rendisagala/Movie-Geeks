@@ -1,5 +1,5 @@
 require("dotenv").config();
-const axios = require("axios");
+var axios = require("axios");
 
 exports.details = async (id, data) => {
   //  backdrop_path, budget, genres, homeid, imdb_id, original_language, title, overview, popularity, poster_path, production_companies, production_countries, release_date, revenue, runttime, status, voe_average, vote_count
@@ -38,9 +38,13 @@ exports.images = async (id, data) => {
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.backdrops.length; i++) {
-        result.push(
-          `${process.env.IMAGE}${results.data.backdrops[i].file_path}`
-        );
+        if (results.data.backdrops[i].file_path !== null) {
+          result.push(
+            `${process.env.IMAGE}${results.data.backdrops[i].file_path}`
+          );
+        } else {
+          result.push("sH6030EbSzOUTFFZrpnTdSpeNP0.jpg");
+        }
       }
       return data(result);
     })
@@ -68,11 +72,11 @@ exports.keywords = async (id, data) => {
     });
 };
 
-exports.recommendations = async (id, data) => {
+exports.recommendations = async (id, page, data) => {
   // returns movie id
   await axios
     .get(
-      `${process.env.API}/movie/${id}/recommendations?api_key=${process.env.APIKEY}`
+      `${process.env.API}/movie/${id}/recommendations?api_key=${process.env.APIKEY}&page=${page}`
     )
     .then((results) => {
       let result = [];
@@ -143,11 +147,13 @@ exports.videos = async (id, data) => {
     });
 };
 
-exports.topRated = async (data) => {
+exports.topRated = async (page, data) => {
   // genre_ids, id, original_language, original_title, overview, popularity, poster_path, release_date, title, video, vote_average, vote_count
   //  returns movie id
   await axios
-    .get(`${process.env.API}/movie/top_rated?api_key=${process.env.APIKEY}`)
+    .get(
+      `${process.env.API}/movie/top_rated?api_key=${process.env.APIKEY}&page=${page}`
+    )
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
@@ -161,11 +167,13 @@ exports.topRated = async (data) => {
     });
 };
 
-exports.similar = async (id, data) => {
+exports.similar = async (id, page, data) => {
   // genre_ids, id, original_language, original_title, overview, popularity, poster_path, release_date, title, video, vote_average, vote_count
   //  returns movie id
   await axios
-    .get(`${process.env.API}/movie/${id}/similar?api_key=${process.env.APIKEY}`)
+    .get(
+      `${process.env.API}/movie/${id}/similar?api_key=${process.env.APIKEY}&page=${page}`
+    )
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
@@ -179,11 +187,13 @@ exports.similar = async (id, data) => {
     });
 };
 
-exports.popular = async (data) => {
+exports.popular = async (page, data) => {
   // genre_ids, id, original_language, original_title, overview, popularity, poster_path, release_date, title, video, vote_average, vote_count
   //  returns movie id
   await axios
-    .get(`${process.env.API}/movie/popular?api_key=${process.env.APIKEY}`)
+    .get(
+      `${process.env.API}/movie/popular?api_key=${process.env.APIKEY}&page=${page}`
+    )
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
@@ -197,11 +207,13 @@ exports.popular = async (data) => {
     });
 };
 
-exports.nowPlaying = async (data) => {
+exports.nowPlaying = async (page, data) => {
   // genre_ids, id, original_language, original_title, overview, popularity, poster_path, release_date, title, video, vote_average, vote_count
   //  returns movie id
   await axios
-    .get(`${process.env.API}/movie/now_playing?api_key=${process.env.APIKEY}`)
+    .get(
+      `${process.env.API}/movie/now_playing?api_key=${process.env.APIKEY}&page=${page}`
+    )
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
@@ -215,11 +227,13 @@ exports.nowPlaying = async (data) => {
     });
 };
 
-exports.upcoming = async (data) => {
+exports.upcoming = async (page, data) => {
   // genre_ids, id, original_language, original_title, overview, popularity, poster_path, release_date, title, video, vote_average, vote_count
   //  returns movie id
   await axios
-    .get(`${process.env.API}/movie/upcoming?api_key=${process.env.APIKEY}`)
+    .get(
+      `${process.env.API}/movie/upcoming?api_key=${process.env.APIKEY}&page=${page}`
+    )
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {

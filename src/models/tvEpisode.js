@@ -24,7 +24,13 @@ exports.images = async (id, season, episode, data) => {
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.stills.length; i++) {
-        result.push(`${process.env.IMAGE}$results.data.stills[i].file_path}`);
+        if (results.data.backdrops[i].file_path !== null) {
+          result.push(
+            `${process.env.IMAGE}${results.data.backdrops[i].file_path}`
+          );
+        } else {
+          result.push("sH6030EbSzOUTFFZrpnTdSpeNP0.jpg");
+        }
       }
       return data(result);
     })

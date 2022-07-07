@@ -1,16 +1,16 @@
 require("dotenv").config();
 const axios = require("axios");
 
-exports.companies = async (query, data) => {
+exports.companies = async (query, page, data) => {
   // return companies id
   await axios
     .get(
-      `${process.env.API}/search/company?api_key=${process.env.APIKEY}&query=${query}`
+      `${process.env.API}/search/company?api_key=${process.env.APIKEY}&query=${query}&page=${page}`
     )
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
-        result.push(results.data.results[i].id);
+        result.push(results.data.results[i]);
       }
       return data(result);
     })
@@ -20,16 +20,16 @@ exports.companies = async (query, data) => {
     });
 };
 
-exports.keywords = async (query, data) => {
+exports.keywords = async (query, page, data) => {
   //returns keywords id
   await axios
     .get(
-      `${process.env.API}/search/keyword?api_key=${process.env.APIKEY}&query=${query}`
+      `${process.env.API}/search/keyword?api_key=${process.env.APIKEY}&query=${query}&page=${page}`
     )
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
-        result.push(results.data.results[i].id);
+        result.push(results.data.results[i]);
       }
       return data(result);
     })
@@ -39,16 +39,16 @@ exports.keywords = async (query, data) => {
     });
 };
 
-exports.movie = async (query, data) => {
+exports.movie = async (query, page, data) => {
   //returns movies id
   await axios
     .get(
-      `${process.env.API}/search/movie?api_key=${process.env.APIKEY}&query=${query}`
+      `${process.env.API}/search/movie?api_key=${process.env.APIKEY}&query=${query}&page=${page}`
     )
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
-        result.push(results.data.results[i].id);
+        result.push(results.data.results[i]);
       }
       return data(result);
     })
@@ -58,16 +58,16 @@ exports.movie = async (query, data) => {
     });
 };
 
-exports.multiSearch = async (query, data) => {
+exports.multiSearch = async (query, page, data) => {
   //returns movies and tv(S) id
   await axios
     .get(
-      `${process.env.API}/search/multi?api_key=${process.env.APIKEY}&query=${query}`
+      `${process.env.API}/search/multi?api_key=${process.env.APIKEY}&query=${query}&page=${page}`
     )
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
-        result.push(results.data.results[i].id);
+        result.push(results.data.results[i]);
       }
       return data(result);
     })
@@ -77,16 +77,16 @@ exports.multiSearch = async (query, data) => {
     });
 };
 
-exports.person = async (query, data) => {
+exports.person = async (query, page, data) => {
   //returns person id
   await axios
     .get(
-      `${process.env.API}/search/person?api_key=${process.env.APIKEY}&query=${query}`
+      `${process.env.API}/search/person?api_key=${process.env.APIKEY}&query=${query}&page=${page}`
     )
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
-        result.push(results.data.results[i].id);
+        result.push(results.data.results[i]);
       }
       return data(result);
     })
@@ -96,16 +96,16 @@ exports.person = async (query, data) => {
     });
 };
 
-exports.tv = async (query, data) => {
+exports.tv = async (query, page, data) => {
   //returns tv id
   await axios
     .get(
-      `${process.env.API}/search/tv?api_key=${process.env.APIKEY}&query=${query}`
+      `${process.env.API}/search/tv?api_key=${process.env.APIKEY}&query=${query}&page=${page}`
     )
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
-        result.push(results.data.results[i].id);
+        result.push(results.data.results[i]);
       }
       return data(result);
     })

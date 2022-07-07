@@ -3,10 +3,12 @@ const axios = require("axios");
 
 // time line trending = 7 DAYS
 
-exports.movie = async (data) => {
+exports.movie = async (page, data) => {
   //returns movie id
   await axios
-    .get(`${process.env.API}/trending/movie/week?api_key=${process.env.APIKEY}`)
+    .get(
+      `${process.env.API}/trending/movie/week?api_key=${process.env.APIKEY}&page=${page}`
+    )
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
@@ -23,7 +25,9 @@ exports.movie = async (data) => {
 exports.tv = async (data) => {
   //returns tv id
   await axios
-    .get(`${process.env.API}/trending/tv/week?api_key=${process.env.APIKEY}`)
+    .get(
+      `${process.env.API}/trending/tv/week?api_key=${process.env.APIKEY}&page=${page}`
+    )
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
@@ -41,7 +45,7 @@ exports.person = async (data) => {
   //returns person id
   await axios
     .get(
-      `${process.env.API}/trending/person/week?api_key=${process.env.APIKEY}`
+      `${process.env.API}/trending/person/week?api_key=${process.env.APIKEY}&page=${page}`
     )
     .then((results) => {
       let result = [];

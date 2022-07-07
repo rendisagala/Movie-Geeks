@@ -126,7 +126,8 @@ include ("../partials/navbar") %>
             </div>
           
             <div class="filter__gallery">
-              <% for (let i =0; i <15; i++) {  %>
+              
+              <% for (let i =0; i <topRatedMovie.length; i++) {  %>
        
               <div
                 class="product__sidebar__view__item set-bg mix day years"
@@ -143,7 +144,7 @@ include ("../partials/navbar") %>
               <h5>Top Rated TV Series</h5>
              
             </div>
-            <% for (let i =0; i <10; i++) {  %>
+            <% for (let i =0; i <topRatedTV.length; i++) {  %>
             <div class="product__sidebar__comment__item">
               <div class="product__sidebar__comment__item__pic set-bg ">
                 <img src="<%= topRatedTVImage[i] %>" alt="" />
@@ -152,10 +153,7 @@ include ("../partials/navbar") %>
                 <h5>
                   <a href="/tv/details/<%= topRatedTV[i] %>"><%= topRatedTVTitle[i] %></a>
                 </h5>              
-                  <ul>
-                  <% for (let j =0; j <topRatedTVGenre[i].length; j++) {  %>
-                  <li><%= topRatedTVGenre[i][j] %></li><% } %>
-                </ul>
+                  
                 <p style="color :white;overflow:hidden; height: 170px;"><%= topRatedTVOverview[i] %></p>
               </div>
             </div><% } %>

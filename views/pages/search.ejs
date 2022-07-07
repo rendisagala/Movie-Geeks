@@ -1,0 +1,128 @@
+<%- include ("../partials/header") %> <%- include ("../partials/loading") %> <%-
+include ("../partials/navbar") %>
+
+<!-- Breadcrumb Begin -->
+<div class="breadcrumb-option">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="breadcrumb__links">
+          <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+          <a href="./categories.html">Categories</a>
+          <span>Romance</span>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="product__pagination p-0 float-right" >
+       
+           <a href="/search/<%= query %>/<%= page - 1 %>"  class="fa fa-angle-double-left" id="Page"></a>
+            <a href="" class="current-page"><%= page %></a>
+            <a href="/search/<%= query %>/<%= page + 1 %>"><i class="fa fa-angle-double-right" id="nextPage"></i></a>
+        
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Breadcrumb End -->
+
+<!-- Product Section Begin -->
+<section class="product-page spad">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="product__page__content">
+          <div class="product__page__title">
+            <div class="row">
+              <div class="col-lg-8 col-md-8 col-sm-6">
+                <div class="section-title">
+                  <h4>Result - Movies</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <% for (let i =0; i <movieId.length; i++) {  %>
+                <a href="/movie/details/<%= movieId[i]%>">
+            <div class="col-lg-4 col-md-6 col-sm-6">
+              <div class="product__item">
+                <div
+                  class="product__item__pic set-bg"
+                  data-setbg="<%= movieImage[i] %>"
+                >
+                  <div class="ep"><%= movieVoteAverage[i] %></div>
+                </div>
+                <div class="product__item__text">
+                  <ul>
+                    <% for (let j =0; j <movieGenre[i].length; j++) {  %>
+                    <li><%= movieGenre[i][j] %></li><% } %>
+                  
+                  </ul>
+                  <h5><a href="/movie/details/<%= movieId[i]%>"><%= movieTitle[i] %></a></h5>
+                </div>
+              </div>
+            </div></a><% } %>
+         
+             
+          </div>
+          <div class="product__page__title">
+            <div class="row">
+              <div class="col-lg-8 col-md-8 col-sm-6">
+                <div class="section-title">
+                  <h4>Result - TV Series</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <% for (let i =0; i <tvId.length; i++) {  %>
+                <a href="/tv/details/<%= tvId[i]%>">
+            <div class="col-lg-4 col-md-6 col-sm-6">
+              <div class="product__item">
+                <div
+                  class="product__item__pic set-bg"
+                  data-setbg="<%= tvImage[i] %>"
+                >
+                  <div class="ep"><%= tvVoteAverage[i] %></div>
+                </div>
+                <div class="product__item__text">
+                  <ul>
+                    <% for (let j =0; j <tvGenre[i].length; j++) {  %>
+                    <li><%= tvGenre[i][j] %></li><% } %>
+                  
+                  </ul>
+                  <h5><a href="/tv/details/<%= tvId[i]%>"><%= tvTitle[i] %></a></h5>
+                </div>
+              </div>
+            </div></a><% } %>
+          </div>
+        </div>
+     
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-8">
+        <div class="product__sidebar">
+          <div class="product__sidebar__view">
+            <div class="section-title">
+              <h5>Result - Person</h5>
+            </div>
+            <div class="filter__gallery">
+                <% for (let i =0; i <personId.length; i++) {  %>
+              <div
+                class="product__sidebar__view__item set-bg mix day years"
+                data-setbg="<%= personImage[i] %>"
+              >
+               
+                <h5><a href="#"><%= personName[i] %></a></h5>
+              </div><% } %>
+          
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Product Section End -->
+<%- include ("../partials/footer") %>

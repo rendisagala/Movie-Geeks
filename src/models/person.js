@@ -22,9 +22,13 @@ exports.images = async (id, data) => {
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.profiles.length; i++) {
-        result.push(
-          `${process.env.IMAGE}${results.data.profiles[i].file_path}`
-        );
+        if (results.data.backdrops[i].file_path !== null) {
+          result.push(
+            `${process.env.IMAGE}${results.data.profiles[i].file_path}`
+          );
+        } else {
+          result.push("sH6030EbSzOUTFFZrpnTdSpeNP0.jpg");
+        }
       }
       return data(result);
     })

@@ -20,19 +20,23 @@ exports.index = async (req, res) => {
   await genre.movie((result) => {
     genres = result;
   });
-
+  var page = 1;
   var trendingMovie = [];
   var trendingMovieTitle = [];
   var trendingMovieImage = [];
   var trendingMovieGenre = [];
   var trendingMovieOverview = [];
 
-  await trending.movie(async (result) => {
+  await trending.movie(page, async (result) => {
     for (let i = 0; i < result.length; i++) {
       trendingMovieTitle.push(result[i].title);
       trendingMovieOverview.push(result[i].overview);
       trendingMovie.push(result[i].id);
-      trendingMovieImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
+      if (result[i].poster_path === null) {
+        trendingMovieImage.push(`https://http.cat/404`);
+      } else {
+        trendingMovieImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
+      }
       await movie.details(result[i].id, async (data) => {
         temp.push(data.genres.map(Object.values));
       });
@@ -52,14 +56,18 @@ exports.index = async (req, res) => {
   var popularMovieOverview = [];
   var popularMovieVoteAverage = [];
 
-  await movie.popular(async (result) => {
+  await movie.popular(page, async (result) => {
     var temp = [];
     for (let i = 0; i < result.length; i++) {
       popularMovieTitle.push(result[i].title);
       popularMovieOverview.push(result[i].overview);
       popularMovieVoteAverage.push(result[i].vote_average);
       popularMovie.push(result[i].id);
-      popularMovieImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
+      if (result[i].poster_path === null) {
+        popularMovieImage.push(`https://http.cat/404`);
+      } else {
+        popularMovieImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
+      }
       await movie.details(result[i].id, async (data) => {
         temp.push(data.genres.map(Object.values));
       });
@@ -79,14 +87,18 @@ exports.index = async (req, res) => {
   var popularTVOverview = [];
   var popularTVVoteAverage = [];
 
-  await tv.popular(async (result) => {
+  await tv.popular(page, async (result) => {
     var temp = [];
     for (let i = 0; i < result.length; i++) {
       popularTVTitle.push(result[i].name);
       popularTVOverview.push(result[i].overview);
       popularTVVoteAverage.push(result[i].vote_average);
       popularTV.push(result[i].id);
-      popularTVImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
+      if (result[i].poster_path === null) {
+        popularTVImage.push(`https://http.cat/404`);
+      } else {
+        popularTVImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
+      }
       await tv.details(result[i].id, async (data) => {
         temp.push(data.genres.map(Object.values));
       });
@@ -105,12 +117,16 @@ exports.index = async (req, res) => {
 
   var topRatedMovieVoteAverage = [];
 
-  await movie.topRated(async (result) => {
+  await movie.topRated(page, async (result) => {
     for (let i = 0; i < result.length; i++) {
       topRatedMovieTitle.push(result[i].title);
       topRatedMovieVoteAverage.push(result[i].vote_average);
       topRatedMovie.push(result[i].id);
-      topRatedMovieImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
+      if (result[i].poster_path === null) {
+        topRatedMovieImage.push(`https://http.cat/404`);
+      } else {
+        topRatedMovieImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
+      }
     }
   });
 
@@ -121,14 +137,18 @@ exports.index = async (req, res) => {
   var topRatedTVOverview = [];
   var topRatedTVVoteAverage = [];
 
-  await tv.topRated(async (result) => {
+  await tv.topRated(page, async (result) => {
     var temp = [];
     for (let i = 0; i < result.length; i++) {
       topRatedTVTitle.push(result[i].name);
       topRatedTVVoteAverage.push(result[i].vote_average);
       topRatedTVOverview.push(result[i].overview);
       topRatedTV.push(result[i].id);
-      topRatedTVImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
+      if (result[i].poster_path === null) {
+        topRatedTVImage.push(`https://http.cat/404`);
+      } else {
+        topRatedTVImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
+      }
       await tv.details(result[i].id, async (data) => {
         temp.push(data.genres.map(Object.values));
       });
