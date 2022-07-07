@@ -14,9 +14,9 @@ include ("../partials/navbar") %>
       <div class="col-lg-4">
         <div class="product__pagination p-0 float-right" >
        
-           <a href="/movie/<%= page - 1 %>"  class="fa fa-angle-double-left" id="Page"></a>
+           <a href="/tv/<%= page - 1 %>"  class="fa fa-angle-double-left" id="Page"></a>
             <a href="" class="current-page"><%= page %></a>
-            <a href="/movie/<%= page + 1 %>"><i class="fa fa-angle-double-right" id="nextPage"></i></a>
+            <a href="/tv/<%= page + 1 %>"><i class="fa fa-angle-double-right" id="nextPage"></i></a>
         
           </div>
       </div>
@@ -35,30 +35,30 @@ include ("../partials/navbar") %>
             <div class="row">
               <div class="col-lg-8 col-md-8 col-sm-6">
                 <div class="section-title">
-                  <h4>Trending Movies</h4>
+                  <h4>Trending TV Series</h4>
                 </div>
               </div>
             </div>
           </div>
           
           <div class="row">
-            <% for (let i =0; i <trendingMovie.length; i++) {  %>
-                <a href="/movie/details/<%= trendingMovie[i]%>">
+            <% for (let i =0; i <trendingTV.length; i++) {  %>
+                <a href="/tv/details/<%= trendingTV[i]%>">
             <div class="col-lg-4 col-md-6 col-sm-6">
               <div class="product__item">
                 <div
                   class="product__item__pic set-bg"
-                  data-setbg="<%= trendingMovieImage[i] %>"
+                  data-setbg="<%= trendingTVImage[i] %>"
                 >
-                  <div class="ep"><%= trendingMovieVoteAverage[i] %></div>
+                  <div class="ep"><%= trendingTVVoteAverage[i] %></div>
                 </div>
                 <div class="product__item__text">
                   <ul>
-                    <% for (let j =0; j <trendingMovieGenre[i].length; j++) {  %>
-                    <li><%= trendingMovieGenre[i][j] %></li><% } %>
+                    <% for (let j =0; j <trendingTVGenre[i].length; j++) {  %>
+                    <li><%= trendingTVGenre[i][j] %></li><% } %>
                   
                   </ul>
-                  <h5><a href="/movie/details/<%= trendingMovie[i]%>"><%= trendingMovieTitle[i] %></a></h5>
+                  <h5><a href="/tv/details/<%= trendingTV[i]%>"><%= trendingTVTitle[i] %></a></h5>
                 </div>
               </div>
             </div></a><% } %>
@@ -69,29 +69,29 @@ include ("../partials/navbar") %>
             <div class="row">
               <div class="col-lg-8 col-md-8 col-sm-6">
                 <div class="section-title">
-                  <h4>Top Rated Movies</h4>
+                  <h4>Top Rated TV Series</h4>
                 </div>
               </div>
             </div>
           </div>
           <div class="row">
-            <% for (let i =0; i <topRatedMovie.length; i++) {  %>
-                <a href="/movie/details/<%= topRatedMovie[i]%>">
+            <% for (let i =0; i <topRatedTV.length; i++) {  %>
+                <a href="/tv/details/<%= topRatedTV[i]%>">
             <div class="col-lg-4 col-md-6 col-sm-6">
               <div class="product__item">
                 <div
                   class="product__item__pic set-bg"
-                  data-setbg="<%= topRatedMovieImage[i] %>"
+                  data-setbg="<%= topRatedTVImage[i] %>"
                 >
-                  <div class="ep"><%= topRatedMovieVoteAverage[i] %></div>
+                  <div class="ep"><%= topRatedTVVoteAverage[i] %></div>
                 </div>
                 <div class="product__item__text">
                   <ul>
-                    <% for (let j =0; j <topRatedMovieGenre[i].length; j++) {  %>
-                    <li><%= topRatedMovieGenre[i][j] %></li><% } %>
+                    <% for (let j =0; j <topRatedTVGenre[i].length; j++) {  %>
+                    <li><%= topRatedTVGenre[i][j] %></li><% } %>
                   
                   </ul>
-                  <h5><a href="/movie/details/<%= topRatedMovie[i]%>"><%= topRatedMovieTitle[i] %></a></h5>
+                  <h5><a href="/tv/details/<%= topRatedTV[i]%>"><%= topRatedTVTitle[i] %></a></h5>
                 </div>
               </div>
             </div></a><% } %>
@@ -101,29 +101,29 @@ include ("../partials/navbar") %>
             <div class="row">
               <div class="col-lg-8 col-md-8 col-sm-6">
                 <div class="section-title">
-                  <h4>Popular Movies</h4>
+                  <h4>Popular TV Serires</h4>
                 </div>
               </div>
             </div>
           </div>
           <div class="row">
-            <% for (let i =0; i <popularMovie.length; i++) {  %>
-                <a href="/movie/details/<%= popularMovie[i]%>">
+            <% for (let i =0; i <popularTV.length; i++) {  %>
+                <a href="/tv/details/<%= popularTV[i]%>">
             <div class="col-lg-4 col-md-6 col-sm-6">
               <div class="product__item">
                 <div
                   class="product__item__pic set-bg"
-                  data-setbg="<%= popularMovieImage[i] %>"
+                  data-setbg="<%= popularTVImage[i] %>"
                 >
-                  <div class="ep"><%= popularMovieVoteAverage[i] %></div>
+                  <div class="ep"><%= popularTVVoteAverage[i] %></div>
                 </div>
                 <div class="product__item__text">
                   <ul>
-                    <% for (let j =0; j <popularMovieGenre[i].length; j++) {  %>
-                    <li><%= popularMovieGenre[i][j] %></li><% } %>
+                    <% for (let j =0; j <popularTVGenre[i].length; j++) {  %>
+                    <li><%= popularTVGenre[i][j] %></li><% } %>
                   
                   </ul>
-                  <h5><a href="/movie/details/<%= popularMovie[i]%>"><%= popularMovieTitle[i] %></a></h5>
+                  <h5><a href="/tv/details/<%= popularTV[i]%>"><%= popularTVTitle[i] %></a></h5>
                 </div>
               </div>
             </div></a><% } %>
@@ -133,29 +133,29 @@ include ("../partials/navbar") %>
             <div class="row">
               <div class="col-lg-8 col-md-8 col-sm-6">
                 <div class="section-title">
-                  <h4>UpComing Movies</h4>
+                  <h4>"On The Air" TV Series</h4>
                 </div>
               </div>
             </div>
           </div>
           <div class="row">
-            <% for (let i =0; i <upComingMovie.length; i++) {  %>
-                <a href="/movie/details/<%= upComingMovie[i]%>">
+            <% for (let i =0; i <onTheAirTV.length; i++) {  %>
+                <a href="/tv/details/<%= onTheAirTV[i]%>">
             <div class="col-lg-4 col-md-6 col-sm-6">
               <div class="product__item">
                 <div
                   class="product__item__pic set-bg"
-                  data-setbg="<%= upComingMovieImage[i] %>"
+                  data-setbg="<%= onTheAirTVImage[i] %>"
                 >
-                  <div class="ep"><%= upComingMovieVoteAverage[i] %></div>
+                  <div class="ep"><%= onTheAirTVVoteAverage[i] %></div>
                 </div>
                 <div class="product__item__text">
                   <ul>
-                    <% for (let j =0; j <upComingMovieGenre[i].length; j++) {  %>
-                    <li><%= upComingMovieGenre[i][j] %></li><% } %>
+                    <% for (let j =0; j <onTheAirTVGenre[i].length; j++) {  %>
+                    <li><%= onTheAirTVGenre[i][j] %></li><% } %>
                   
                   </ul>
-                  <h5><a href="/movie/details/<%= upComingMovie[i]%>"><%= upComingMovieTitle[i] %></a></h5>
+                  <h5><a href="/tv/details/<%= onTheAirTV[i]%>"><%= onTheAirTVTitle[i] %></a></h5>
                 </div>
               </div>
             </div></a><% } %>
@@ -168,16 +168,16 @@ include ("../partials/navbar") %>
         <div class="product__sidebar">
           <div class="product__sidebar__view">
             <div class="section-title">
-              <h5>Playing in Theaters</h5>
+              <h5>Now Airing</h5>
             </div>
             <div class="filter__gallery">
-                <% for (let i =0; i <nowPlayingMovie.length; i++) {  %>
+                <% for (let i =0; i <airingTodayTV.length; i++) {  %>
               <div
                 class="product__sidebar__view__item set-bg mix day years"
-                data-setbg="<%= nowPlayingMovieImage[i] %>"
+                data-setbg="<%= airingTodayTVImage[i] %>"
               >
                
-                <h5><a href=" movie/details/<%=nowPlayingMovie[i] %>"><%= nowPlayingMovieTitle[i] %></a></h5>
+                <h5><a href=" tv/details/<%=airingTodayTV[i] %>"><%= airingTodayTVTitle[i] %></a></h5>
               </div><% } %>
           
             </div>

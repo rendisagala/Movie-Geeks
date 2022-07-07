@@ -22,7 +22,7 @@ exports.movie = async (page, data) => {
     });
 };
 
-exports.tv = async (data) => {
+exports.tv = async (page, data) => {
   //returns tv id
   await axios
     .get(
@@ -31,7 +31,7 @@ exports.tv = async (data) => {
     .then((results) => {
       let result = [];
       for (let i = 0; i < results.data.results.length; i++) {
-        result.push(results.data.results[i].id);
+        result.push(results.data.results[i]);
       }
       return data(result);
     })

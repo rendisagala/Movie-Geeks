@@ -11,27 +11,30 @@ const person = require("../models/person");
 const review = require("../models/review");
 
 var temp = [];
-
 var title;
-exports.index = async (req, res) => {
-  title = `Movie Geeks`;
+var page;
+exports.movie = async (req, res) => {
+  title = `Movie - List`;
   var genres;
   await genre.movie((result) => {
     genres = result;
   });
-  var page = 1;
+  page = Number(req.params.page);
+  if (page < 1) {
+    page = 1;
+  }
 
   var trendingMovie = [];
   var trendingMovieTitle = [];
   var trendingMovieImage = [];
   var trendingMovieGenre = [];
-  var trendingMovieOverview = [];
+  var trendingMovieVoteAverage = [];
 
   await trending.movie(page, async (result) => {
     for (let i = 0; i < result.length; i++) {
       trendingMovieTitle.push(result[i].title);
-      trendingMovieOverview.push(result[i].overview);
       trendingMovie.push(result[i].id);
+      trendingMovieVoteAverage.push(result[i].vote_average);
       if (result[i].poster_path === null) {
         trendingMovieImage.push(`https://http.cat/404`);
       } else {
@@ -49,11 +52,41 @@ exports.index = async (req, res) => {
     }
   });
 
+  var topRatedMovie = [];
+  var topRatedMovieTitle = [];
+  var topRatedMovieImage = [];
+  var topRatedMovieGenre = [];
+  var topRatedMovieVoteAverage = [];
+  movie.topRated(page, async (result) => {
+    await trending.movie(page, async (result) => {
+      for (let i = 0; i < result.length; i++) {
+        topRatedMovieTitle.push(result[i].title);
+        topRatedMovie.push(result[i].id);
+        topRatedMovieVoteAverage.push(result[i].vote_average);
+        if (result[i].poster_path === null) {
+          topRatedMovieImage.push(`https://http.cat/404`);
+        } else {
+          topRatedMovieImage.push(
+            `${process.env.IMAGE}${result[i].poster_path}`
+          );
+        }
+        await movie.details(result[i].id, async (data) => {
+          temp.push(data.genres.map(Object.values));
+        });
+      }
+      for (let i = 0; i < temp.length; i++) {
+        for (let j = 0; j < temp[i].length; j++) {
+          temp[i][j].shift();
+        }
+        topRatedMovieGenre.push(temp[i].flat());
+      }
+    });
+  });
+
   var popularMovie = [];
   var popularMovieTitle = [];
   var popularMovieImage = [];
   var popularMovieGenre = [];
-
   var popularMovieVoteAverage = [];
 
   await movie.popular(page, async (result) => {
@@ -79,24 +112,24 @@ exports.index = async (req, res) => {
     }
   });
 
-  var popularTV = [];
-  var popularTVTitle = [];
-  var popularTVImage = [];
-  var popularTVGenre = [];
-  var popularTVVoteAverage = [];
+  var upComingMovie = [];
+  var upComingMovieTitle = [];
+  var upComingMovieImage = [];
+  var upComingMovieGenre = [];
+  var upComingMovieVoteAverage = [];
 
-  await tv.popular(page, async (result) => {
+  await movie.upcoming(page, async (result) => {
     var temp = [];
     for (let i = 0; i < result.length; i++) {
-      popularTVTitle.push(result[i].name);
-      popularTVVoteAverage.push(result[i].vote_average);
-      popularTV.push(result[i].id);
+      upComingMovieTitle.push(result[i].title);
+      upComingMovieVoteAverage.push(result[i].vote_average);
+      upComingMovie.push(result[i].id);
       if (result[i].poster_path === null) {
-        popularTVImage.push(`https://http.cat/404`);
+        upComingMovieImage.push(`https://http.cat/404`);
       } else {
-        popularTVImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
+        upComingMovieImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
       }
-      await tv.details(result[i].id, async (data) => {
+      await movie.details(result[i].id, async (data) => {
         temp.push(data.genres.map(Object.values));
       });
     }
@@ -104,88 +137,57 @@ exports.index = async (req, res) => {
       for (let j = 0; j < temp[i].length; j++) {
         temp[i][j].shift();
       }
-      popularTVGenre.push(temp[i].flat());
+      upComingMovieGenre.push(temp[i].flat());
     }
   });
 
-  var topRatedMovie = [];
-  var topRatedMovieTitle = [];
-  var topRatedMovieImage = [];
-  var topRatedMovieVoteAverage = [];
+  var nowPlayingMovie = [];
+  var nowPlayingMovieTitle = [];
+  var nowPlayingMovieImage = [];
 
-  await movie.topRated(page, async (result) => {
+  var nowPlayingMovieVoteAverage = [];
+
+  await movie.nowPlaying(1, async (result) => {
     for (let i = 0; i < result.length; i++) {
-      topRatedMovieTitle.push(result[i].title);
-      topRatedMovieVoteAverage.push(result[i].vote_average);
-      topRatedMovie.push(result[i].id);
+      nowPlayingMovieTitle.push(result[i].title);
+      nowPlayingMovieVoteAverage.push(result[i].vote_average);
+      nowPlayingMovie.push(result[i].id);
       if (result[i].poster_path === null) {
-        topRatedMovieImage.push(`https://http.cat/404`);
+        nowPlayingMovieImage.push(`https://http.cat/404`);
       } else {
-        topRatedMovieImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
+        nowPlayingMovieImage.push(
+          `${process.env.IMAGE}${result[i].poster_path}`
+        );
       }
     }
   });
-
-  var topRatedTV = [];
-  var topRatedTVTitle = [];
-  var topRatedTVImage = [];
-  var topRatedTVGenre = [];
-  var topRatedTVOverview = [];
-  var topRatedTVVoteAverage = [];
-
-  await tv.topRated(page, async (result) => {
-    var temp = [];
-    for (let i = 0; i < result.length; i++) {
-      topRatedTVTitle.push(result[i].name);
-      topRatedTVVoteAverage.push(result[i].vote_average);
-      topRatedTVOverview.push(result[i].overview);
-      topRatedTV.push(result[i].id);
-      if (result[i].poster_path === null) {
-        topRatedTVImage.push(`https://http.cat/404`);
-      } else {
-        topRatedTVImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
-      }
-      await tv.details(result[i].id, async (data) => {
-        temp.push(data.genres.map(Object.values));
-      });
-    }
-    for (let i = 0; i < temp.length; i++) {
-      for (let j = 0; j < temp[i].length; j++) {
-        temp[i][j].shift();
-      }
-      topRatedTVGenre.push(temp[i].flat());
-    }
-  });
-
-  // console.log(topRatedTVGenre);
-  // res.json(trendingMovieGenre);
-  res.render("pages/index", {
+  res.render("pages/movie", {
     title: title,
+    page: page,
     genres: genres,
     trendingMovie: trendingMovie,
     trendingMovieTitle: trendingMovieTitle,
     trendingMovieImage: trendingMovieImage,
     trendingMovieGenre: trendingMovieGenre,
-    trendingMovieOverview: trendingMovieOverview,
+    trendingMovieVoteAverage: trendingMovieVoteAverage,
+    topRatedMovie: topRatedMovie,
+    topRatedMovieTitle: topRatedMovieTitle,
+    topRatedMovieImage: topRatedMovieImage,
+    topRatedMovieGenre: topRatedMovieGenre,
+    topRatedMovieVoteAverage: topRatedMovieVoteAverage,
     popularMovie: popularMovie,
     popularMovieTitle: popularMovieTitle,
     popularMovieImage: popularMovieImage,
     popularMovieGenre: popularMovieGenre,
     popularMovieVoteAverage: popularMovieVoteAverage,
-    popularTV: popularTV,
-    popularTVTitle: popularTVTitle,
-    popularTVImage: popularTVImage,
-    popularTVGenre: popularTVGenre,
-    popularTVVoteAverage: popularTVVoteAverage,
-    topRatedMovie: topRatedMovie,
-    topRatedMovieTitle: topRatedMovieTitle,
-    topRatedMovieImage: topRatedMovieImage,
-    topRatedMovieVoteAverage: topRatedMovieVoteAverage,
-    topRatedTV: topRatedTV,
-    topRatedTVTitle: topRatedTVTitle,
-    topRatedTVImage: topRatedTVImage,
-    topRatedTVGenre: topRatedTVGenre,
-    topRatedTVVoteAverage: topRatedTVVoteAverage,
-    topRatedTVOverview: topRatedTVOverview,
+    upComingMovie: upComingMovie,
+    upComingMovieTitle: upComingMovieTitle,
+    upComingMovieImage: upComingMovieImage,
+    upComingMovieGenre: upComingMovieGenre,
+    upComingMovieVoteAverage: upComingMovieVoteAverage,
+    nowPlayingMovie: nowPlayingMovie,
+    nowPlayingMovieImage: nowPlayingMovieImage,
+    nowPlayingMovieTitle: nowPlayingMovieTitle,
+    nowPlayingMovieVoteAverage: nowPlayingMovieVoteAverage,
   });
 };
