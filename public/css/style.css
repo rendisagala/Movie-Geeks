@@ -1395,6 +1395,13 @@ ol {
   line-height: 30px;
 }
 
+.textt {
+  font-size: 20px !important;
+  line-height: 30px !important;
+  text-align: center !important;
+  font-weight: bold !important;
+}
+
 .blog__item__text {
   position: absolute;
   left: 0;
@@ -2383,4 +2390,8 @@ a.showCastImage div {
 }
 a.showCastImage:hover div {
   display: block;
+}
+
+.linkk {
+  text-decoration: underline;
 }

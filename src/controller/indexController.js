@@ -15,10 +15,7 @@ var temp = [];
 var title;
 exports.index = async (req, res) => {
   title = `Movie Geeks`;
-  var genres;
-  await genre.movie((result) => {
-    genres = result;
-  });
+
   var page = 1;
 
   var trendingMovie = [];
@@ -157,11 +154,8 @@ exports.index = async (req, res) => {
     }
   });
 
-  // console.log(topRatedTVGenre);
-  // res.json(trendingMovieGenre);
   res.render("pages/index", {
     title: title,
-    genres: genres,
     trendingMovie: trendingMovie,
     trendingMovieTitle: trendingMovieTitle,
     trendingMovieImage: trendingMovieImage,

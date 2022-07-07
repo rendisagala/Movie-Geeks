@@ -14,26 +14,16 @@
           <nav class="header__menu mobile-menu">
             <ul>
               <li><a href="/">Homepage</a></li>
-              <li>
-                <a href="/"
-                  >Genres <span class="arrow_carrot-down"></span
-                ></a>
-                <ul class="dropdown"> 
-                    <% for (let i =0; i <genres.length; i++) { %>
-                  <li><a href="/genre/<%= genres[i].id %>"> <%= genres[i].name %></a></li> <% } %>
-                </ul>
-              </li>
               <li class=""><a href="/movie/1">Movies</a></li>
               <li><a href="/tv/1">TV Series</a></li>
+              <li><a href="/about">About</a></li>
             </ul>
           </nav>
         </div>
       </div>
       <div class="col-lg-2">
         <div class="header__right">
-          <a  class="search-switch"
-            ><span class="icon_search"></span
-          ></a>
+          <a class="search-switch"><span class="icon_search"></span></a>
         </div>
       </div>
     </div>

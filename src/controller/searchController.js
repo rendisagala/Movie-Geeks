@@ -25,10 +25,6 @@ exports.result = async (req, res) => {
   if (page < 1) {
     page = 1;
   }
-  var genres;
-  await genre.movie((result) => {
-    genres = result;
-  });
   title = `${query} - result`;
   var movieId = [];
   var movieTitle = [];
@@ -109,10 +105,8 @@ exports.result = async (req, res) => {
     }
   });
 
-  //   console.log(tvImage);
   res.render("pages/search", {
     title: title,
-    genres: genres,
     query: query,
     movieId: movieId,
     page: page,

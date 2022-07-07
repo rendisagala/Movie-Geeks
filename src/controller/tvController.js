@@ -15,10 +15,6 @@ var title;
 var page;
 exports.tv = async (req, res) => {
   title = `TV Series - List`;
-  var genres;
-  await genre.tv((result) => {
-    genres = result;
-  });
   page = Number(req.params.page);
   if (page < 1) {
     page = 1;
@@ -168,7 +164,6 @@ exports.tv = async (req, res) => {
   res.render("pages/tv", {
     title: title,
     page: page,
-    genres: genres,
     trendingTV: trendingTV,
     trendingTVTitle: trendingTVTitle,
     trendingTVImage: trendingTVImage,

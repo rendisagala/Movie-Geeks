@@ -17,11 +17,8 @@ var title;
 exports.movie = async (req, res) => {
   type = `Movie`;
   var page = 1;
-  var genres;
+
   id = req.params.id;
-  await genre.movie((result) => {
-    genres = result;
-  });
 
   var movieTitle;
   var movieStatus;
@@ -107,11 +104,10 @@ exports.movie = async (req, res) => {
       similarMovieImage.push(`${process.env.IMAGE}${result[i].poster_path}`);
     }
   });
-  // console.log(castName);
+
   res.render("pages/movieDetails", {
     type: type,
     title: title,
-    genres: genres,
     movieTitle: movieTitle,
     movieStatus: movieStatus,
     moviePoster: moviePoster,
@@ -142,9 +138,6 @@ exports.movie = async (req, res) => {
 exports.tv = async (req, res) => {
   type = `TV Series`;
   var id = req.params.id;
-  await genre.movie((result) => {
-    genres = result;
-  });
 
   var tvTitle;
   var tvEpisodeRunTime;
@@ -244,7 +237,7 @@ exports.tv = async (req, res) => {
       }
     }
   });
-  console.log(castImage);
+
   res.render("pages/tvDetails", {
     type: type,
     title: title,
